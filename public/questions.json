@@ -1,0 +1,77 @@
+[
+  {
+    "question": "Who is considered the father of Western philosophy?",
+    "options": ["Plato", "Socrates", "Aristotle", "Heraclitus"],
+    "correct": 1
+  },
+  {
+    "question": "What is the name of Plato's famous work about an ideal society?",
+    "options": ["The Republic", "Nicomachean Ethics", "Metaphysics", "The Iliad"],
+    "correct": 0
+  },
+  {
+    "question": "Which Greek philosopher tutored Alexander the Great?",
+    "options": ["Plato", "Aristotle", "Socrates", "Pythagoras"],
+    "correct": 1
+  },
+  {
+    "question": "What was the central focus of Heraclitus' philosophy?",
+    "options": ["The soul", "Change and flux", "Ethics", "Mathematics"],
+    "correct": 1
+  },
+  {
+    "question": "What term did Aristotle use to describe 'happiness' or 'flourishing'?",
+    "options": ["Pathos", "Logos", "Sophrosyne", "Eudaimonia"],
+    "correct": 3
+  },
+  {
+    "question": "Which Greek city-state is considered the birthplace of democracy?",
+    "options": ["Athens", "Sparta", "Delphi", "Corinth"],
+    "correct": 0
+  },
+  {
+    "question": "What is the meaning of 'philosophy' in Greek?",
+    "options": ["Love of wisdom", "Knowledge of truth", "Science of thought", "Wisdom of gods"],
+    "correct": 0
+  },
+  {
+    "question": "Which ancient Greek epic was written by Homer?",
+    "options": ["The Histories", "The Odyssey", "The Republic", "The Aeneid"],
+    "correct": 1
+  },
+  {
+    "question": "Who is the author of 'Meditations,' a work rooted in Stoic philosophy?",
+    "options": ["Epictetus", "Marcus Aurelius", "Seneca", "Aristotle"],
+    "correct": 1
+  },
+  {
+    "question": "What is the Socratic method primarily based on?",
+    "options": ["Writing", "Lecturing", "Storytelling", "Questioning"],
+    "correct": 3
+  },
+  {
+    "question": "Who founded the philosophical school of Stoicism?",
+    "options": ["Zeno of Citium", "Epicurus", "Heraclitus", "Plato"],
+    "correct": 0
+  },
+  {
+    "question": "What is the term for a state of inner peace and freedom from distress in Stoicism?",
+    "options": ["Eudaimonia", "Logos", "Ataraxia", "Sophrosyne"],
+    "correct": 2
+  },
+  {
+    "question": "Which philosopher is famous for the allegory of the cave?",
+    "options": ["Socrates", "Heraclitus", "Aristotle", "Plato"],
+    "correct": 3
+  },
+  {
+    "question": "What did Pythagoras famously contribute to mathematics?",
+    "options": ["The Pythagorean theorem", "Calculus", "Geometry of circles", "Theory of proportions"],
+    "correct": 0
+  },
+  {
+    "question": "Who is credited with founding the Academy in Athens?",
+    "options": ["Aristotle", "Plato", "Socrates", "Pythagoras"],
+    "correct": 1
+  }
+]
