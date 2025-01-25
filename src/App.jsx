@@ -125,7 +125,7 @@ function App() {
       setStage('results'); // Går vidare till resultaten.
       confetti({
         spread: 375,
-        particleCount: 433,
+        particleCount: 432,
         origin: { x: 0 },
         startVelocity: 70,
       });
