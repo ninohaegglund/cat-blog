@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     const audioInstance = new Audio(sound);
+    audioInstance.volume = 0.1;
     setAudio(audioInstance);
 
     return () => {
@@ -150,9 +151,10 @@ function App() {
 
 
   return (
-  
+    
+    //Tailwind/DaisyUI styling
     <div className="App min-h-screen flex flex-col items-center justify-center">
-
+      
       <div className="dropdown fixed top-4">
       <div tabIndex={0} role="button" className="btn m-1">
         Theme
@@ -267,7 +269,7 @@ function App() {
             placeholder="Enter your name"
             value={name}
             onChange={handleNameChange}
-            className="input input-bordered input-success w-full max-w-xs mb-3"
+            className="input input-bordered input-accent w-full max-w-xs mb-4"
           />
           {error && <p className="text-red-500">{error}</p>}
           <button
