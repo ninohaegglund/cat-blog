@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
-import confetti from 'canvas-confetti';
+import confetti from 'canvas-confetti'; //konfetti effetk
 import sound from "./assets/audio/Pokemon Colosseum- Phenac City.mp3";
 
 
 function App() {
+  // Definierar state-variabler.för att spara quizens tillstånd
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [stage, setStage] = useState('welcome');
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(3);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quizError, setQuizError] = useState(null);
@@ -30,6 +31,7 @@ function App() {
     };
   }, []);
 
+  //Funktion för att spela musik
   const play = () => {
     if (audio) audio.play();
   };
@@ -38,7 +40,7 @@ function App() {
     if (audio) audio.pause();
   };
 
-
+ // Hämtar frågor från questions.json
   useEffect(() => {
     fetch('/questions.json')
       .then((response) => {
@@ -48,7 +50,7 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        setQuestions(data);
+        setQuestions(data); // Sparar frågorna i state.
         setLoading(false);
       })
       .catch((error) => {
@@ -57,6 +59,7 @@ function App() {
       });
   }, []);
 
+  // Timer för nedräkning innan quizzet börjar.
   useEffect(() => {
     if (stage === 'countdown' && countdown > 0) {
       const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
@@ -66,6 +69,7 @@ function App() {
     }
   }, [stage, countdown]);
 
+  // Timer för varje fråga i quizzet.
   useEffect(() => {
     if (stage === 'quiz' && quizTimer > 0) {
       const timer = setTimeout(() => setQuizTimer(quizTimer - 1), 1000);
@@ -82,6 +86,7 @@ function App() {
     }
   };
 
+  //startar quiz spelet
   const handleStart = () => {
     if (!name.trim()) {
       setError('Please enter your name');
@@ -89,24 +94,26 @@ function App() {
       setStage('countdown');
       confetti({
         spread: 275,
-        particleCount: 233,
+        particleCount: 433,
         origin: { y: 0.6 },
         startVelocity: 70,
       });
     }
   };
 
+  // Hanterar användarens svar.
   const handleAnswerClick = (index) => {
     if (selectedAnswer === null) {
       setSelectedAnswer(index);
       setShowFeedback(true);
 
       if (index === questions[currentQuestionIndex].correct) {
-        setScore(score + 1);
+        setScore(score + 1); // Uppdaterar poäng vid korrekt svar.
       }
     }
   };
 
+  // Går till nästa fråga.
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -114,7 +121,7 @@ function App() {
       setShowFeedback(false);
       setQuizTimer(10);
     } else {
-      setStage('results');
+      setStage('results'); // Går vidare till resultaten.
       confetti({
         spread: 375,
         particleCount: 433,
@@ -138,7 +145,7 @@ function App() {
     return <div className="text-center text-xl">Error: {quizError}</div>;
   }
 
-  const progressValue = (currentQuestionIndex / (questions.length - 1)) * 100;
+  const progressValue = (currentQuestionIndex / (questions.length - 1)) * 100;  // Beräknar framsteg på progressbar efter varje fråga
 
 
 
@@ -146,85 +153,85 @@ function App() {
   
     <div className="App min-h-screen flex flex-col items-center justify-center">
 
-<div className="dropdown fixed top-4">
-  <div tabIndex={0} role="button" className="btn m-1">
-    Theme
-    <svg
-      width="12px"
-      height="12px"
-      className="inline-block h-2 w-2 fill-current opacity-60"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 2048 2048">
-      <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
-    </svg>
-  </div>
-  <ul tabIndex={0} className="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl">
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Default"
-        value="default" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Retro"
-        value="retro" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Cyberpunk"
-        value="cyberpunk" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Valentine"
-        value="valentine" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Aqua"
-        value="aqua" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Synthwave"
-        value="synthwave" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Dark"
-        value="dark" />
-    </li>
-    <li>
-      <input
-        type="radio"
-        name="theme-dropdown"
-        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-        aria-label="Black"
-        value="black" />
-    </li>
-  </ul>
-</div>
+      <div className="dropdown fixed top-4">
+      <div tabIndex={0} role="button" className="btn m-1">
+        Theme
+        <svg
+          width="12px"
+          height="12px"
+          className="inline-block h-2 w-2 fill-current opacity-60"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2048 2048">
+          <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+        </svg>
+      </div>
+      <ul tabIndex={0} className="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl">
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Default"
+            value="default" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Retro"
+            value="retro" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Cyberpunk"
+            value="cyberpunk" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Valentine"
+            value="valentine" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Aqua"
+            value="aqua" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Synthwave"
+            value="synthwave" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Dark"
+            value="dark" />
+        </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Black"
+            value="black" />
+        </li>
+      </ul>
+      </div>
 
       <label className="swap absolute bottom-4 left-4">
        
@@ -253,10 +260,9 @@ function App() {
         </label>
 
       {stage === 'welcome' && (
-        <div className="welcome text-center p-6 rounded-lg shadow-2xl w-96" >
-
-         
-          <h1 className="text-3xl font-bold mb-4">Welcome to my Amazing Quiz Game💥</h1>
+         // Välkomstskärmen visas om stage är "welcome"
+        <div className="welcome text-center p-6 rounded-lg shadow-2xl w-96" >  
+          <h1 className="text-3xl font-bold mb-4">Welcome to my Quiz Game💥</h1>
           <input
             placeholder="Enter your name"
             value={name}
@@ -266,16 +272,15 @@ function App() {
           {error && <p className="text-red-500">{error}</p>}
           <button
             onClick={handleStart}
-            className="btn btn-accent"
+            className="btn btn-accent animate-pulse"
           >
             Start Quiz
           </button>
-
-        </div>
-        
+        </div>     
       )}
 
       {stage === 'countdown' && (
+        // Nedräkningen visas om stage är "countdown"
         <div className="text-center p-6 rounded-lg shadow-2xl w-96">
           <span className="loading loading-infinity loading-lg"></span>
           <h3 className="text-xl font-semibold mb-6">Welcome, {name}!</h3>
@@ -286,14 +291,19 @@ function App() {
 
 
       {stage === 'quiz' && (
+         // Quiz-skärmen visas om stage är "quiz"
         <div className="quiz p-6 rounded-lg shadow-2xl w-96 ">
+          {/* progressbar för quizet */}
           <progress className="progress progress-primary  w-56" value={progressValue} max="100"></progress>
           <h2 className="text-xl font-semibold mb-4">
+             {/* Nuvarande fråga */}
             Question {currentQuestionIndex + 1}/{questions.length}
           </h2>
           <div className="card mb-4">
             <h3 className="text-lg font-bold">{questions[currentQuestionIndex].question}</h3>
+            {/* Alternativen för frågan */}
             <ul className="options mt-4 space-y-2">
+               {/* Itererar över alternativen för den aktuella frågan */}
               {questions[currentQuestionIndex].options.map((option, index) => (
                 <li
                   key={index}
@@ -314,6 +324,7 @@ function App() {
               ))}
             </ul>
           </div >
+           {/* Feedback om svaret är rätt eller fel */}
           {showFeedback && selectedAnswer !== null && (
             <p className="mt-2 mb-4 ml-2 text-xl text-center ">
               {selectedAnswer === questions[currentQuestionIndex].correct
@@ -321,8 +332,9 @@ function App() {
                 : 'Incorrect! 😞'}
             </p>
           )}
+          {/*knapp (next question) för att gå till nästa fråga, visas endast om ett svar är valt */}
           {selectedAnswer !== null && (
-            <button
+            <button 
               onClick={handleNextQuestion}
              className="btn btn-warning mx-auto block"
             >
@@ -334,6 +346,7 @@ function App() {
       )}
 
       {stage === 'results' && (
+        // Resultatskärmen visas om stage är "results"
         <div className="results text-center p-6 rounded-lg shadow-2xl w-96">
           <h2 className="text-2xl font-semibold mb-4">Quiz Finished!</h2>
           <p className="text-xl">
