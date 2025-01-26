@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     const audioInstance = new Audio(sound);
-    audioInstance.volume = 0.1;
+    audioInstance.volume = 0.2;
     setAudio(audioInstance);
 
     return () => {
