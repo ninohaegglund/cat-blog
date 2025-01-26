@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
 import confetti from 'canvas-confetti'; //konfetti effetk
-import sound from "./assets/audio/Pokemon Colosseum- Phenac City.mp3";
+import sound from "./assets/audio/Frédéric Chopin - Waltz no. 19 op. posth. in A Minor.mp3";
 
 
 function App() {
