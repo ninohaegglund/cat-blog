@@ -155,7 +155,7 @@ function App() {
     //Tailwind/DaisyUI styling
     <div className="App min-h-screen flex flex-col items-center justify-center">
       
-      <div className="dropdown fixed top-4">
+      <div className="dropdown fixed top-4 right-4 mr-4 mt-4">
       <div tabIndex={0} role="button" className="btn m-1">
         Theme
         <svg
@@ -263,8 +263,10 @@ function App() {
 
       {stage === 'welcome' && (
          // Välkomstskärmen visas om stage är "welcome"
-        <div className="welcome text-center p-6 rounded-lg shadow-2xl w-96" >  
-          <h1 className="text-3xl font-bold mb-4">Welcome to my Quiz Game💥</h1>
+         <div className="welcome text-center p-8 rounded-2xl shadow-2xl bg-base-100/90 backdrop-blur-sm w-96 transform transition-all hover:scale-105"> 
+          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Welcome to my Quiz Game 💥
+          </h1>
           <input
             placeholder="Enter your name"
             value={name}
@@ -274,7 +276,7 @@ function App() {
           {error && <p className="text-red-500">{error}</p>}
           <button
             onClick={handleStart}
-            className="btn btn-accent animate-pulse"
+            className="btn btn-accent transition-all hover:gap-3 hover:scale-[1.02]"
           >
             Start Quiz
           </button>
@@ -283,45 +285,61 @@ function App() {
 
       {stage === 'countdown' && (
         // Nedräkningen visas om stage är "countdown"
-        <div className="text-center p-6 rounded-lg shadow-2xl w-96">
+        <div className="text-center p-8 rounded-2xl shadow-2xl bg-base-100/90 backdrop-blur-sm w-96 animate-fade-in">
           <span className="loading loading-infinity loading-lg"></span>
           <h3 className="text-xl font-semibold mb-6">Welcome, {name}!</h3>
           <h2 className="text-xl font-semibold mb-6">Get Ready! The quiz starts in...</h2>
-          <h1 className="text-5xl font-bold text-blue-500">{countdown}</h1>
+          <div className="countdown text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            {countdown}
+          </div>
         </div>
       )}
 
 
       {stage === 'quiz' && (
          // Quiz-skärmen visas om stage är "quiz"
-        <div className="quiz p-6 rounded-lg shadow-2xl w-96 ">
+         <div className="quiz p-8 rounded-2xl shadow-2xl bg-base-100/90 backdrop-blur-sm w-full max-w-lg transform transition-all">
           {/* progressbar för quizet */}
-          <progress className="progress progress-primary  w-56" value={progressValue} max="100"></progress>
+          <div className="mb-6 space-y-2">
+            <div className="flex justify-between text-sm font-medium">
+              <span>Progress</span>
+              <span>{Math.round(progressValue)}%</span>
+            </div>
+            <progress 
+              className="progress progress-primary h-3 transition-all duration-300" 
+              value={progressValue} 
+              max="100"
+            ></progress>
+          </div>
+           {/* Nuvarande fråga */}
           <h2 className="text-xl font-semibold mb-4">
-             {/* Nuvarande fråga */}
             Question {currentQuestionIndex + 1}/{questions.length}
           </h2>
           <div className="card mb-4">
             <h3 className="text-lg font-bold">{questions[currentQuestionIndex].question}</h3>
             {/* Alternativen för frågan */}
-            <ul className="options mt-4 space-y-2">
-               {/* Itererar över alternativen för den aktuella frågan */}
-              {questions[currentQuestionIndex].options.map((option, index) => (
+              <ul className="options space-y-3">
+                {questions[currentQuestionIndex].options.map((option, index) => (
                 <li
                   key={index}
                   onClick={() => handleAnswerClick(index)}
-                  className={`${
-                    selectedAnswer === index
-                      ? index === questions[currentQuestionIndex].correct
-                        ? 'bg-green-400 text-white'
-                        : 'bg-red-400 text-white'
-                      : 'cursor-pointer hover:bg-secondary'
-                  } p-2 rounded-md`}
-                  style={{
-                    pointerEvents: selectedAnswer === null ? 'auto' : 'none',
-                  }}
+                  className={`option-item btn btn-block btn-lg justify-start h-auto min-h-12 py-3 transition-all duration-200 ${
+                    selectedAnswer === null 
+                      ? 'hover:bg-primary/20 hover:translate-x-2 hover:shadow-md bg-base-200'
+                      : index === questions[currentQuestionIndex].correct
+                        ? 'bg-green-100 text-green-800 border-2 border-green-300'
+                        : selectedAnswer === index
+                          ? 'bg-red-100 text-red-800 border-2 border-red-300'
+                          : 'bg-base-200 opacity-75'
+                  }`}
+                  style={{ pointerEvents: selectedAnswer === null ? 'auto' : 'none' }}
                 >
-                  {option}
+                  <span className="text-lg">{option}</span>
+                  {selectedAnswer !== null && index === questions[currentQuestionIndex].correct && (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
                 </li>
               ))}
             </ul>
@@ -338,7 +356,7 @@ function App() {
           {selectedAnswer !== null && (
             <button 
               onClick={handleNextQuestion}
-             className="btn btn-warning mx-auto block"
+             className="btn btn-primary mx-auto block "
             >
               Next Question
             </button>
@@ -347,18 +365,27 @@ function App() {
         </div>
       )}
 
-      {stage === 'results' && (
-        // Resultatskärmen visas om stage är "results"
-        <div className="results text-center p-6 rounded-lg shadow-2xl w-96">
-          <h2 className="text-2xl font-semibold mb-4">Quiz Finished!</h2>
-          <p className="text-xl">
-            Well done, {name}! Your score is {score}/{questions.length}.
-          </p>
-          <button
+{stage === 'results' && (
+        <div className="results text-center p-8 rounded-2xl shadow-2xl bg-base-100/90 backdrop-blur-sm w-96 animate-fade-in">
+          <div className="mb-6">
+            <div className="text-6xl mb-4">🎉</div>
+            <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
+            <p className="text-xl mb-4">
+              Well done, <span className="font-semibold text-primary">{name}</span>!
+            </p>
+            <div className="stats shadow-lg">
+              <div className="stat">
+                <div className="stat-title">Your Score</div>
+                <div className="stat-value text-primary">{score}/{questions.length}</div>
+                <div className="stat-desc">{((score/questions.length)*100).toFixed(1)}% Correct</div>
+              </div>
+            </div>
+          </div>
+            <button
             onClick={() => window.location.reload()}
-            className="btn btn-primary w-full mt-4 py-2  font-semibold rounded"
+            className="btn btn-primary w-full mt-4 py-2 font-semibold rounded hover:gap-3 hover:scale-[1.02]"
           >
-            Restart
+            Play Again
           </button>
         </div>
       )}
