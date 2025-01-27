@@ -316,7 +316,7 @@ function App() {
             Question {currentQuestionIndex + 1}/{questions.length}
           </h2>
           <div className="card mb-4">
-            <h3 className="text-lg font-bold">{questions[currentQuestionIndex].question}</h3>
+            <h3 className="text-2xl font-bold mb-6">{questions[currentQuestionIndex].question}</h3>
             {/* Alternativen för frågan */}
               <ul className="options space-y-3">
                 {questions[currentQuestionIndex].options.map((option, index) => (
